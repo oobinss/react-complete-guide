@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback } from 'react'
 
 function httpReducer(state, action) {
   if (action.type === 'SEND') {
@@ -6,7 +6,7 @@ function httpReducer(state, action) {
       data: null,
       error: null,
       status: 'pending',
-    };
+    }
   }
 
   if (action.type === 'SUCCESS') {
@@ -14,7 +14,7 @@ function httpReducer(state, action) {
       data: action.responseData,
       error: null,
       status: 'completed',
-    };
+    }
   }
 
   if (action.type === 'ERROR') {
@@ -22,10 +22,10 @@ function httpReducer(state, action) {
       data: null,
       error: action.errorMessage,
       status: 'completed',
-    };
+    }
   }
 
-  return state;
+  return state
 }
 
 function useHttp(requestFunction, startWithPending = false) {
@@ -33,28 +33,28 @@ function useHttp(requestFunction, startWithPending = false) {
     status: startWithPending ? 'pending' : null,
     data: null,
     error: null,
-  });
+  })
 
   const sendRequest = useCallback(
     async function (requestData) {
-      dispatch({ type: 'SEND' });
+      dispatch({ type: 'SEND' })
       try {
-        const responseData = await requestFunction(requestData);
-        dispatch({ type: 'SUCCESS', responseData });
+        const responseData = await requestFunction(requestData)
+        dispatch({ type: 'SUCCESS', responseData })
       } catch (error) {
         dispatch({
           type: 'ERROR',
           errorMessage: error.message || 'Something went wrong!',
-        });
+        })
       }
     },
     [requestFunction]
-  );
+  )
 
   return {
     sendRequest,
     ...httpState,
-  };
+  }
 }
 
-export default useHttp;
+export default useHttp
