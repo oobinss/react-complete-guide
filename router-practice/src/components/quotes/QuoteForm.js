@@ -1,5 +1,4 @@
 import { Fragment, useRef, useState } from 'react'
-import { Prompt } from 'react-router-dom'
 
 import Card from '../UI/Card'
 import LoadingSpinner from '../UI/LoadingSpinner'
@@ -17,8 +16,6 @@ const QuoteForm = (props) => {
     const enteredAuthor = authorInputRef.current.value
     const enteredText = textInputRef.current.value
 
-    // optional: Could validate here
-
     props.onAddQuote({ author: enteredAuthor, text: enteredText })
   }
 
@@ -32,12 +29,6 @@ const QuoteForm = (props) => {
 
   return (
     <Fragment>
-      <Prompt
-        when={isEntering}
-        message={(location) =>
-          'Are you sure you want to leave? All your entered data will be lost!'
-        }
-      />
       <Card>
         <form
           onFocus={formFocusedHandler}
